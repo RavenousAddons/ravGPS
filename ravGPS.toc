@@ -1,0 +1,15 @@
+## Interface: 90002
+## Version: 1.0.0
+
+## Name: Ravenous GPS
+## Title: Ravenous |cffff6b6bGPS|r
+## Notes: "Let people know where you/your target are!"
+## Author: waldenp0nd
+
+## SavedVariables: RAVGPS_version, RAVGPS_seenUpdate
+
+## X-License: Public Domain
+## X-Website: https://github.com/waldenp0nd/ravGPS
+
+locales.lua
+Addon.lua
