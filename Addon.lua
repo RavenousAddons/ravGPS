@@ -36,10 +36,11 @@ local function coordinates(a, b)
     local targetName, _ = UnitName("target")
     local waypoint = C_Map.GetUserWaypoint()
     local mapID = C_Map.GetBestMapForUnit("player")
+    local mapInfo = C_Map.GetMapInfo(mapID)
     local placedOnParent = false
     -- Jump up parentMapIDs when unable to set a waypoint on current map
     while (not C_Map.CanSetUserWaypointOnMap(mapID)) do
-        local mapInfo = C_Map.GetMapInfo(mapID)
+        mapInfo = C_Map.GetMapInfo(mapID)
         if mapInfo.parentMapID then
             placedOnParent = true
             mapID = mapInfo.parentMapID
@@ -48,12 +49,12 @@ local function coordinates(a, b)
         end
     end
     local coordinates = C_Map.GetPlayerMapPosition(mapID, "player")
-    if C_Map.CanSetUserWaypointOnMap(mapID) then
+    if coordinates and C_Map.CanSetUserWaypointOnMap(mapID) then
         C_Map.SetUserWaypoint(UiMapPoint.CreateFromCoordinates(mapID, coordinates.x, coordinates.y))
         if placedOnParent then
             print(string.format(ravGPS.locales[ravGPS.locale].parentplace, ravGPS.name))
         end
-        message = ((targetName and targetName ~= playerName) and string.format(ravGPS.locales[ravGPS.locale].messages.target, targetName) or ravGPS.locales[ravGPS.locale].messages.player) .. C_Map.GetUserWaypointHyperlink()
+        message = ((targetName and targetName ~= playerName) and string.format(ravGPS.locales[ravGPS.locale].messages.target, targetName) or ravGPS.locales[ravGPS.locale].messages.player) .. mapInfo.name .. C_Map.GetUserWaypointHyperlink()
         if channel then
             SendChatMessage(message, channel, _, channelTarget)
         else

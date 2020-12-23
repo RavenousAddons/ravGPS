@@ -1,5 +1,5 @@
 ## Interface: 90002
-## Version: 1.0.0
+## Version: 1.0.1
 
 ## Name: Ravenous GPS
 ## Title: Ravenous |cffff6b6bGPS|r
