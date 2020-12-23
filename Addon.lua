@@ -11,8 +11,6 @@ local defaults = {
     LOCALE =  "enUS"
 }
 
-local guild, _, _, _ = GetGuildInfo("player")
-
 local function prettyPrint(message, full)
     if full == false then
         message = message .. ":"
@@ -22,11 +20,18 @@ local function prettyPrint(message, full)
 end
 
 local function sendVersionData()
-    C_ChatInfo.SendAddonMessage(name, RAVGPS_version, "YELL")
-    C_ChatInfo.SendAddonMessage(name, RAVGPS_version, "PARTY")
-    C_ChatInfo.SendAddonMessage(name, RAVGPS_version, "RAID")
-    if guild then
-        C_ChatInfo.SendAddonMessage(name, RAVGPS_version, "GUILD")
+    local inInstance, _ = IsInInstance()
+    if inInstance then
+        C_ChatInfo.SendAddonMessage(name, RAV_version, "INSTANCE_CHAT")
+    elseif IsInGroup() then
+        if GetNumGroupMembers() > 5 then
+            C_ChatInfo.SendAddonMessage(name, RAV_version, "RAID")
+        end
+        C_ChatInfo.SendAddonMessage(name, RAV_version, "PARTY")
+    end
+    local guildName, _, _, _ = GetGuildInfo("player")
+    if guildName then
+        C_ChatInfo.SendAddonMessage(name, RAV_version, "GUILD")
     end
 end
 
