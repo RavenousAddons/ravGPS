@@ -17,7 +17,7 @@ ravGPS.locales = {
         },
         ["messages"] = {
             ["player"] = "My coordinates are: ",
-            ["target"] = "%s is up at " -- targetName
+            ["target"] = "%s is at: " -- targetName
         },
         ["load"] = {
             ["outofdate"] = "There is an update available for |cff" .. ravGPS.color .. "%s|r! Please go to GitHub, WoWInterface, or Curse to download.", -- ravGPS.name

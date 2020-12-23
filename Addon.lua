@@ -40,10 +40,10 @@ local function coordinates(a, b)
     local placedOnParent = false
     -- Jump up parentMapIDs when unable to set a waypoint on current map
     while (not C_Map.CanSetUserWaypointOnMap(mapID)) do
-        mapInfo = C_Map.GetMapInfo(mapID)
         if mapInfo.parentMapID then
             placedOnParent = true
             mapID = mapInfo.parentMapID
+            mapInfo = C_Map.GetMapInfo(mapID)
         else
             break
         end
@@ -54,7 +54,7 @@ local function coordinates(a, b)
         if placedOnParent then
             print(string.format(ravGPS.locales[ravGPS.locale].parentplace, ravGPS.name))
         end
-        message = ((targetName and targetName ~= playerName) and string.format(ravGPS.locales[ravGPS.locale].messages.target, targetName) or ravGPS.locales[ravGPS.locale].messages.player) .. mapInfo.name .. C_Map.GetUserWaypointHyperlink()
+        message = ((targetName and targetName ~= playerName) and string.format(ravGPS.locales[ravGPS.locale].messages.target, targetName) or ravGPS.locales[ravGPS.locale].messages.player) .. mapInfo.name .. " " .. string.format("%.4f", coordinates.x) * 100 .. ", " .. string.format("%.4f", coordinates.y) * 100 .. " " .. C_Map.GetUserWaypointHyperlink()
         if channel then
             SendChatMessage(message, channel, _, channelTarget)
         else
