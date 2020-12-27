@@ -1,0 +1,13 @@
+<Ui>
+    <Script file="metadata.lua" />
+    <Script file="locales.lua" />
+    <Script file="functions.lua" />
+    <Script file="core.lua" />
+
+    <Frame name="ravGPS">
+        <Scripts>
+            <OnLoad function="ravGPS_OnLoad" />
+            <OnEvent function="ravGPS_OnEvent" />
+        </Scripts>
+    </Frame>
+</Ui>

@@ -1,5 +1,5 @@
 ## Interface: 90002
-## Version: 1.0.2
+## Version: 1.1.0
 
 ## Name: Ravenous GPS
 ## Title: Ravenous |cffff6b6bGPS|r
@@ -11,5 +11,4 @@
 ## X-License: Public Domain
 ## X-Website: https://github.com/waldenp0nd/ravGPS
 
-locales.lua
-Addon.lua
+ravGPS.xml

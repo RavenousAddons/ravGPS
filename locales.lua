@@ -1,32 +1,56 @@
 local name, ravGPS = ...
-ravGPS.name = "Ravenous GPS"
-ravGPS.version = GetAddOnMetadata(name, "Version")
-ravGPS.github = "https://github.com/waldenp0nd/ravGPS"
-ravGPS.curseforge = "https://www.curseforge.com/wow/addons/ravgps"
-ravGPS.wowinterface = "https://www.wowinterface.com/downloads/info25839-RavenousGPS.html"
-ravGPS.discord = "https://discord.gg/dNfqnRf2fq"
-ravGPS.color = "ff6b6b"
-ravGPS.locales = {
-    ["enUS"] = {
-        ["help"] = {
-            "Information and How to Use",
-            "Type |cff" .. ravGPS.color .. "/%s|r to get your/your target's coordinates.", -- ravGPS.name
-            "You can send your coordinates to different channels, like party, guild, instance, or whisper: |cff" .. ravGPS.color .. "/%s guild|r, |cff" .. ravGPS.color .. "/%s whisper NAME|r.", -- defaults.COMMAND, defaults.COMMAND
-            "Check out |cff" .. ravGPS.color .. "%s|r on GitHub, WoWInterface, or Curse for more info and support!", -- ravGPS.name
-            "You can also get help directly from the author on Discord: %s" -- ravGPS.discord
-        },
-        ["messages"] = {
-            ["player"] = "My coordinates are: ",
-            ["target"] = "%s is at: " -- targetName
-        },
-        ["load"] = {
-            ["outofdate"] = "There is an update available for |cff" .. ravGPS.color .. "%s|r! Please go to GitHub, WoWInterface, or Curse to download.", -- ravGPS.name
-            ["install"] = "Thanks for installing |cff" .. ravGPS.color .. "%s|r!", -- ravGPS.name
-            ["update"] = "Thanks for updating to |cff" .. ravGPS.color .. "v%s|r!", -- ravGPS.version
-            ["both"] = "Type |cff" .. ravGPS.color .. "/%s help|r to familiarize yourself with the addon." -- defaults.COMMAND
-        },
-        ["version"] = "%s is the current version.", -- ravGPS.version
-        ["parentplace"] = "Usually you are unable to place a Map Pin here, but |cff" .. ravGPS.color .. "%s|r has figured out how to place one for you!", -- ravGPS.name
-        ["cantplace"] = "Unable to place a Map Pin here!"
-    }
-}
+
+local L = {}
+ravGPS.L = L
+
+setmetatable(L, { __index = function(t, k)
+    local v = tostring(k)
+    t[k] = v
+    return v
+end })
+
+L.Version = ravGPS.version .. " is the current version."
+L.OutOfDate = "There is an update available for |cff" .. ravGPS.color .. ravGPS.name .. "|r! Please go to GitHub, WoWInterface, or Curse to download the latest version."
+L.Install = "Thanks for installing |cff" .. ravGPS.color .. ravGPS.name .. "|r!"
+L.Update = "Thanks for updating to |cff" .. ravGPS.color .. "v" .. ravGPS.version .. "|r!"
+L.Help = "Information and How to Use|r\nType |cff" .. ravGPS.color .. "/" .. ravGPS.command .. "|r to get your/your target's coordinates.\nYou can send your coordinates to different channels, like party, guild, instance, or whisper: |cff" .. ravGPS.color .. "/" .. ravGPS.command .. " guild|r, |cff" .. ravGPS.color .. "/" .. ravGPS.command .. " whisper NAME|r.\nYou can share it automatically with particular groups, like so: |cff" .. ravGPS.color .. "/" .. ravGPS.command .. " guild|r\nCheck out the addon on GitHub, WoWInterface, or Curse for more info and support!\nYou can also get help directly from the author on Discord: " .. ravGPS.discord
+L.MessagePlayer = "My coordinates are: "
+L.MessageTarget = "%s%s is at: " -- targetName, targetHP
+L.ParentPlace = "Usually you are unable to place a Map Pin here, but |cff" .. ravGPS.color .. ravGPS.name .. "|r has figured out how to place one for you!"
+L.NoPlace = "Unable to place a Map Pin here!"
+
+-- Check locale and assign appropriate
+local CURRENT_LOCALE = GetLocale()
+
+-- English
+if CURRENT_LOCALE == "enUS" then return end
+
+-- German
+if CURRENT_LOCALE == "deDE" then return end
+
+-- Spanish
+if CURRENT_LOCALE == "esES" then return end
+
+-- Latin-American Spanish
+if CURRENT_LOCALE == "esMX" then return end
+
+-- French
+if CURRENT_LOCALE == "frFR" then return end
+
+-- Italian
+if CURRENT_LOCALE == "itIT" then return end
+
+-- Brazilian Portuguese
+if CURRENT_LOCALE == "ptBR" then return end
+
+-- Russian
+if CURRENT_LOCALE == "ruRU" then return end
+
+-- Korean
+if CURRENT_LOCALE == "koKR" then return end
+
+-- Simplified Chinese
+if CURRENT_LOCALE == "zhCN" then return end
+
+-- Traditional Chinese
+if CURRENT_LOCALE == "zhTW" then return end
