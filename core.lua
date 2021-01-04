@@ -34,14 +34,16 @@ function ravGPS_OnEvent(self, event, arg, ...)
 end
 
 SlashCmdList["RAVGPS"] = function(message, editbox)
-    local command, argument = strsplit(" ", message)
-    if command == "version" or command == "v" then
+    local a, b, c = strsplit(" ", message)
+    if a == "version" or a == "v" then
         ravGPS:PrettyPrint(L.Version)
         ravGPS:SendVersion()
-    elseif command == "h" or string.match(command, "help") then
+    elseif a == "h" or string.match(a, "help") then
         ravGPS:PrettyPrint(L.Help)
+    elseif a == "c" or string.match(a, "clear") then
+        C_Map.ClearUserWaypoint()
     else
-        ravGPS:coordinates(command, argument)
+        ravGPS:coordinates(a, b, c)
     end
 end
 SLASH_RAVGPS1 = "/" .. ravGPS.command

@@ -14,6 +14,7 @@ L.OutOfDate = "There is an update available for |cff" .. ravGPS.color .. ravGPS.
 L.Install = "Thanks for installing |cff" .. ravGPS.color .. ravGPS.name .. "|r!"
 L.Update = "Thanks for updating to |cff" .. ravGPS.color .. "v" .. ravGPS.version .. "|r!"
 L.Help = "Information and How to Use|r\nType |cff" .. ravGPS.color .. "/" .. ravGPS.command .. "|r to get your/your target's coordinates.\nYou can send your coordinates to different channels, like party, guild, instance, or whisper: |cff" .. ravGPS.color .. "/" .. ravGPS.command .. " guild|r, |cff" .. ravGPS.color .. "/" .. ravGPS.command .. " whisper NAME|r.\nCheck out the addon on GitHub, WoWInterface, or Curse for more info and support!\nYou can also get help directly from the author on Discord: " .. ravGPS.discord
+L.MessageManual = "Coordinates set to: "
 L.MessagePlayer = "My coordinates are: "
 L.MessageTarget = "%s%s is at: " -- targetName, targetHP
 L.ParentPlace = "Usually you are unable to place a Map Pin here, but |cff" .. ravGPS.color .. ravGPS.name .. "|r has figured out how to place one for you!"
