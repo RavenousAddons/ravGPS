@@ -1,5 +1,4 @@
 local name, ns = ...
-
 local L = {}
 ns.L = L
 
@@ -13,7 +12,7 @@ L.Version = ns.version .. " is the current version."
 L.OutOfDate = "There is an update available for |cff" .. ns.color .. ns.name .. "|r! Please go to GitHub, WoWInterface, or Curse to download the latest version."
 L.Install = "Thanks for installing |cff" .. ns.color .. ns.name .. "|r!"
 L.Update = "Thanks for updating to |cff" .. ns.color .. "v" .. ns.version .. "|r!"
-L.Help = "Information and How to Use|r\nType |cff" .. ns.color .. "/" .. ns.command .. "|r to get your/your target's coordinates.\nYou can send your coordinates to different channels, like party, guild, instance, or whisper: |cff" .. ns.color .. "/" .. ns.command .. " guild|r, |cff" .. ns.color .. "/" .. ns.command .. " whisper NAME|r.\nCheck out the addon on GitHub, WoWInterface, or Curse for more info and support!\nYou can also get help directly from the author on Discord: " .. ns.discord
+L.Help = "Information and How to Use|r\nType |cff" .. ns.color .. "/wp|r to get your/your target's coordinates.\nYou can send your coordinates to different channels, like party, guild, instance, or whisper: |cff" .. ns.color .. "/wp guild|r, |cff" .. ns.color .. "/wp whisper NAME|r.\nCheck out the addon on GitHub, WoWInterface, or Curse for more info and support!\nYou can also get help directly from the author on Discord: " .. ns.discord
 L.MessageManual = "Coordinates set to: "
 L.MessagePlayer = "My coordinates are: "
 L.MessageTarget = "%s%s is at: " -- targetName, targetHP
