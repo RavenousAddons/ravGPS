@@ -1,34 +1,14 @@
-local name, ravGPS = ...
-local L = ravGPS.L
+local name, ns = ...
+local L = ns.L
 
 local playerName = UnitName("player")
 local faction, _ = UnitFactionGroup("player")
 
-function ravGPS:PrettyPrint(message, full)
-    if full == false then
-        message = message .. ":"
-    end
-    local prefix = "|cff" .. ravGPS.color .. ravGPS.name .. (full and " " or ":|r ")
-    DEFAULT_CHAT_FRAME:AddMessage(prefix .. message)
+function ns:PrettyPrint(message)
+    DEFAULT_CHAT_FRAME:AddMessage("|cff" .. ns.color .. ns.name .. ":|r " .. message)
 end
 
-function ravGPS:SendVersion()
-    local inInstance, _ = IsInInstance()
-    if inInstance then
-        C_ChatInfo.SendAddonMessage(name, RAVGPS_version, "INSTANCE_CHAT")
-    elseif IsInGroup() then
-        if GetNumGroupMembers() > 5 then
-            C_ChatInfo.SendAddonMessage(name, RAVGPS_version, "RAID")
-        end
-        C_ChatInfo.SendAddonMessage(name, RAVGPS_version, "PARTY")
-    end
-    local guildName, _, _, _ = GetGuildInfo("player")
-    if guildName then
-        C_ChatInfo.SendAddonMessage(name, RAVGPS_version, "GUILD")
-    end
-end
-
-function ravGPS:coordinates(a, b, c)
+function ns:Coordinates(a, b, c)
     local waypoint = C_Map.GetUserWaypoint()
     local mapID = C_Map.GetBestMapForUnit("player")
     local mapInfo = C_Map.GetMapInfo(mapID)
@@ -72,7 +52,7 @@ function ravGPS:coordinates(a, b, c)
         if channel then
             SendChatMessage(message, channel, _, channelTarget)
         else
-            ravGPS:PrettyPrint(message)
+            ns:PrettyPrint(message)
         end
         if x and y then
             C_SuperTrack.SetSuperTrackedUserWaypoint(true)
@@ -82,6 +62,6 @@ function ravGPS:coordinates(a, b, c)
             C_Map.ClearUserWaypoint()
         end
     else
-        ravGPS:PrettyPrint(L.NoPlace)
+        ns:PrettyPrint(L.NoPlace)
     end
 end
