@@ -10,5 +10,7 @@
 
 ## X-License: Public Domain
 ## X-Website: https://github.com/waldenp0nd/ravGPS
+## X-Curse-Project-ID: 429936
+## X-WoWI-ID: 25839
 
 ravGPS.xml
