@@ -3,7 +3,7 @@
 
 ## Name: Ravenous GPS
 ## Title: Ravenous |cffff6b6bGPS|r
-## Notes: Let people know where you/your target are!
+## Notes: Let people know where you/your target are!|n|cffbbbbbbSlash command: /wp|r
 ## Author: waldenp0nd
 
 ## SavedVariables: RAVGPS_version
