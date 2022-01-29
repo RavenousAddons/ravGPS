@@ -8,7 +8,6 @@ end
 function ravGPS_OnEvent(self, event, arg, ...)
     if arg == name then
         if event == "ADDON_LOADED" then
-            -- ns:SetDefaultOptions()
             if not RAVGPS_version then
                 ns:PrettyPrint(L.Install)
             elseif RAVGPS_version ~= ns.version then
@@ -32,4 +31,3 @@ SlashCmdList["RAVGPS"] = function(message, editbox)
     end
 end
 SLASH_RAVGPS1 = "/wp"
-SLASH_RAVGPS2 = "/ravgps"

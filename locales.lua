@@ -13,9 +13,7 @@ L.OutOfDate = "There is an update available for |cff" .. ns.color .. ns.name .. 
 L.Install = "Thanks for installing |cff" .. ns.color .. ns.name .. "|r!"
 L.Update = "Thanks for updating to |cff" .. ns.color .. "v" .. ns.version .. "|r!"
 L.Help = "Information and How to Use|r\nType |cff" .. ns.color .. "/wp|r to get your/your target's coordinates.\nYou can send your coordinates to different channels, like party, guild, instance, or whisper: |cff" .. ns.color .. "/wp guild|r, |cff" .. ns.color .. "/wp whisper NAME|r.\nCheck out the addon on GitHub, WoWInterface, or Curse for more info and support!"
-L.MessageManual = "Coordinates set to: "
-L.MessagePlayer = "My coordinates are: "
-L.MessageTarget = "%s%s is at: " -- targetName, targetHP
+L.Place = "Added a waypoint %1$s"
 L.ParentPlace = "Usually you are unable to place a Map Pin here, but |cff" .. ns.color .. ns.name .. "|r has figured out how to place one for you!"
 L.NoPlace = "Unable to place a Map Pin here!"
 
