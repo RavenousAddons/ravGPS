@@ -16,6 +16,7 @@ L.Help = "Information and How to Use|r\nType |cff" .. ns.color .. "/wp|r to get 
 L.Place = "Added a waypoint %1$s"
 L.ParentPlace = "Usually you are unable to place a Map Pin here, but |cff" .. ns.color .. ns.name .. "|r has figured out how to place one for you!"
 L.NoPlace = "Unable to place a Map Pin here!"
+L.NoWaypoint = "You must have an active Map Pin in order to Share!"
 
 -- Check locale and assign appropriate
 local CURRENT_LOCALE = GetLocale()

@@ -1,6 +1,8 @@
 local name, ns = ...
 local L = ns.L
 
+local playerName = UnitName("player")
+
 function ravGPS_OnLoad(self)
     self:RegisterEvent("ADDON_LOADED")
 end
@@ -19,13 +21,20 @@ function ravGPS_OnEvent(self, event, arg, ...)
 end
 
 SlashCmdList["RAVGPS"] = function(message, editbox)
-    local a, b, c = strsplit(" ", message)
+    local a, b, c
+    if message:match(",") then
+        a, b, c = strsplit(",", message)
+    else
+        a, b, c = strsplit(" ", message)
+    end
     if a == "version" or a == "v" then
         ns:PrettyPrint(L.Version)
-    elseif a == "h" or string.match(a, "help") then
+    elseif a == "h" or a:match("help") then
         ns:PrettyPrint(L.Help)
-    elseif a == "c" or string.match(a, "clear") then
+    elseif a == "c" or a:match("clear") then
         C_Map.ClearUserWaypoint()
+    elseif a == "s" or a:match("share") then
+        ns:Share(a, b, c)
     else
         ns:Coordinates(a, b, c)
     end
