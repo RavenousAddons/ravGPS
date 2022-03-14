@@ -1,9 +1,9 @@
 ## Interface: 90005
-## Version: 1.2.2
+## Version: 1.3.0
 
 ## Name: Ravenous GPS
 ## Title: Ravenous |cffff6b6bGPS|r
-## Notes: Let people know where you/your target are!|n|cffbbbbbbSlash command: /wp|r
+## Notes: Let people know where you/your target are!|n|cffbbbbbbSlash command: /gps|r
 ## Author: waldenp0nd
 
 ## SavedVariables: RAVGPS_version

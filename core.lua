@@ -39,4 +39,5 @@ SlashCmdList["RAVGPS"] = function(message, editbox)
         ns:Coordinates(a, b, c)
     end
 end
-SLASH_RAVGPS1 = "/wp"
+SLASH_RAVGPS1 = "/gps"
+SLASH_RAVGPS2 = "/wp"

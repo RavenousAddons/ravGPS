@@ -4,9 +4,9 @@
 
 *Let people know where you/your target are!*
 
-Type /wp to get your/your target's coordinates.
+Type /gps to get your/your target's coordinates.
 
-You can send your coordinates to different channels, like party, guild, instance, or whisper: /wp guild, /wp whisper NAME.
+You can send your coordinates to different channels, like party, guild, instance, or whisper: /gps guild, /gps whisper NAME.
 
 The AddOn can even set a map pin when you're typically unable to for your current map.
 
