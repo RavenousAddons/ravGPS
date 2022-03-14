@@ -4,9 +4,11 @@
 
 *Let people know where you/your target are!*
 
-Type /gps to get your/your target's coordinates.
+Type /gps to get your coordinates.
 
-You can send your coordinates to different channels, like party, guild, instance, or whisper: /gps guild, /gps whisper NAME.
+Or you can pass in specific coordinates: /gps 12.34 56.78.
+
+You can share your coordinates to different channels even if they don't have the AddOn: /gps share guild, /gps share whisper NAME(-SERVER).
 
 The AddOn can even set a map pin when you're typically unable to for your current map.
 
