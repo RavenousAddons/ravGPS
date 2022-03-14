@@ -67,12 +67,13 @@ end
 
 -- Unlimited-distance waypoints by redefining function
 local navStateToTargetAlpha = {
-    [0] = 0.6,
+    [0] = 0,
     [1] = 0.6,
-    [2] = 1.0,
+    [2] = 1,
 }
 function SuperTrackedFrame:GetTargetAlphaBaseValue()
-    local state = C_Navigation.GetTargetState()
+    local distance = C_Navigation.GetDistance()
+    local state = distance >= 1000 and 1 or (distance >= 25 and distance <= 70) and 2 or C_Navigation.GetTargetState()
     local alpha = navStateToTargetAlpha[state]
     if alpha and alpha > 0 then
         if self.isClamped then
