@@ -2,7 +2,7 @@
 
 [![Buy me a coffee](https://img.shields.io/badge/help%20out-Buy%20me%20a%20coffee-81b3a0)](https://www.buymeacoffee.com/waldenpond)
 
-*Let people know where you/your target are!*
+*Four lefts and a right and you're there!*
 
 Type /gps to get your coordinates.
 

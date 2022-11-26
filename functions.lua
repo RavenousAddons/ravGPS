@@ -73,7 +73,7 @@ local navStateToTargetAlpha = {
 }
 function SuperTrackedFrame:GetTargetAlphaBaseValue()
     local distance = C_Navigation.GetDistance()
-    local state = distance >= 1000 and 1 or (distance >= 25 and distance <= 70) and 2 or C_Navigation.GetTargetState()
+    local state = distance >= 999 and 1 or (distance >= 25 and distance <= 70) and 2 or C_Navigation.GetTargetState()
     local alpha = navStateToTargetAlpha[state]
     if alpha and alpha > 0 then
         if self.isClamped then
