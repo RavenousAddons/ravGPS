@@ -6,7 +6,7 @@ function ns:PrettyPrint(message)
 end
 
 function ns:Coordinates(a, b, c)
-    local mapID = c and a or C_Map.GetBestMapForUnit("player")
+    local mapID = c and a:gsub("#", "") or C_Map.GetBestMapForUnit("player")
     local x = c and b or a
     local y = c and c or b
 
@@ -43,7 +43,7 @@ function ns:Coordinates(a, b, c)
         if placedOnParent then
             print(L.ParentPlace)
         end
-        ns:PrettyPrint(L.Place:format("|cffffd100|Hworldmap:" .. mapID .. ":" .. string.format("%.4f", x) * 10000 .. ":" .. string.format("%.4f", y) * 10000 .. "|h[|A:Waypoint-MapPin-ChatIcon:13:13:0:0|a |cffeeeeee" .. mapInfo.name .. "|r |cffbbbbbb" .. string.format("%.4f", x) * 100 .. ", " .. string.format("%.4f", y) * 100 .. "|r]|h|r"))
+        ns:PrettyPrint(L.Place:format("|cffffff00|Hworldmap:" .. mapID .. ":" .. string.format("%.4f", x) * 10000 .. ":" .. string.format("%.4f", y) * 10000 .. "|h[|A:Waypoint-MapPin-ChatIcon:13:13:0:0|a |cffffff00" .. mapInfo.name .. " " .. string.format("%.4f", x) * 100 .. ", " .. string.format("%.4f", y) * 100 .. "|r]|h|r"))
     else
         ns:PrettyPrint(L.NoPlace)
     end
@@ -57,9 +57,14 @@ function ns:Share(a, b, c)
         local waypoint = C_Map.GetUserWaypoint()
 
         C_Map.SetUserWaypoint(UiMapPoint.CreateFromCoordinates(waypoint.uiMapID, waypoint.position.x, waypoint.position.y))
-        local mapInfo = C_Map.GetMapInfo(waypoint.uiMapID)
 
-        SendChatMessage(mapInfo.name .. " " .. string.format("%.4f", waypoint.position.x) * 100 .. " " .. string.format("%.4f", waypoint.position.y) * 100 .. " " .. C_Map.GetUserWaypointHyperlink(), channel, _, channelTarget)
+        local mapInfo = C_Map.GetMapInfo(waypoint.uiMapID)
+        local mapName = mapInfo.name
+        if mapInfo.parentMapID then
+            local parentMapInfo = C_Map.GetMapInfo(mapInfo.parentMapID)
+            mapName = mapName .. ", " .. parentMapInfo.name
+        end
+        SendChatMessage(mapName .. " @ " .. string.format("%.4f", waypoint.position.x) * 100 .. ", " .. string.format("%.4f", waypoint.position.y) * 100 .. " " .. C_Map.GetUserWaypointHyperlink(), channel, _, channelTarget)
     else
         ns:PrettyPrint(L.NoWaypoint)
     end
