@@ -6,6 +6,9 @@ function ns:PrettyPrint(message)
 end
 
 function ns:Coordinates(a, b, c)
+    if a == nil or #a == 0 then
+        a = nil
+    end
     local mapID = c and a:gsub("#", "") or C_Map.GetBestMapForUnit("player")
     local x = c and b or a
     local y = c and c or b
@@ -15,9 +18,9 @@ function ns:Coordinates(a, b, c)
     local placedOnParent = false
     -- Jump up parentMapIDs when unable to set a waypoint on current map
     -- Only do so when not explicitly passing in X and Y
-    if not x and not y then
-        while (not C_Map.CanSetUserWaypointOnMap(mapID)) do
-            if mapInfo.parentMapID then
+    if x == nil and y == nil then
+        while not C_Map.CanSetUserWaypointOnMap(mapID) or not C_Map.GetPlayerMapPosition(mapID, "player") do
+            if type(mapInfo) == "table" and mapInfo.parentMapID then
                 placedOnParent = true
                 mapID = mapInfo.parentMapID
                 mapInfo = C_Map.GetMapInfo(mapID)
@@ -27,16 +30,21 @@ function ns:Coordinates(a, b, c)
         end
     end
 
+    if mapID == 0 then
+        ns:PrettyPrint(L.NoPlace)
+        return
+    end
+
     if x and y then
         x = tonumber(x) / 100
         y = tonumber(y) / 100
     else
         local coordinates = C_Map.GetPlayerMapPosition(mapID, "player")
-        x = coordinates.x
-        y = coordinates.y
+        x = type(coordinates) == "table" and coordinates.x or nil
+        y = type(coordinates) == "table" and coordinates.y or nil
     end
 
-    if C_Map.CanSetUserWaypointOnMap(mapID) then
+    if x and y and C_Map.CanSetUserWaypointOnMap(mapID) then
         C_Map.SetUserWaypoint(UiMapPoint.CreateFromCoordinates(mapID, x, y))
         C_SuperTrack.SetSuperTrackedUserWaypoint(true)
 
@@ -49,24 +57,63 @@ function ns:Coordinates(a, b, c)
     end
 end
 
-function ns:Share(a, b, c)
-    local channel = b and ((b:lower() == "p" or b:lower() == "party") and "PARTY" or (b:lower() == "i" or b:lower() == "instance" or b:lower() == "r" or b:lower() == "raid") and "RAID" or (b:lower() == "g" or b:lower() == "guild") and "GUILD" or (b:lower() == "o" or b:lower() == "officer") and "OFFICER" or (b:lower() == "w" or b:lower() == "whisper") and "WHISPER" or nil) or IsInInstance() and "INSTANCE" or IsInRaid() and "RAID" or IsInGroup() and "PARTY" or nil
-    local channelTarget = channel == "WHISPER" and (c and c or (UnitIsPlayer("target") and UnitName("target") or UnitName("player"))) or 1
+local function GetChannelInfo(c, t)
+    if tonumber(c, 10) ~= nil then
+        local target, _ = GetChannelName(c)
 
-    if channel and C_Map.HasUserWaypoint() then
-        local waypoint = C_Map.GetUserWaypoint()
+        return "CHANNEL", target
+    elseif type(c) == "string" and #c:gsub("%s+", "") then
+        c = c:upper():gsub("%s+", "")
 
-        C_Map.SetUserWaypoint(UiMapPoint.CreateFromCoordinates(waypoint.uiMapID, waypoint.position.x, waypoint.position.y))
+        local channel = nil
+        local target = 1
 
-        local mapInfo = C_Map.GetMapInfo(waypoint.uiMapID)
-        local mapName = mapInfo.name
-        if mapInfo.parentMapID then
-            local parentMapInfo = C_Map.GetMapInfo(mapInfo.parentMapID)
-            mapName = mapName .. ", " .. parentMapInfo.name
+        channel = (c == "B" or c == "BG" or c == "BATTLEGROUND") and "BATTLEGROUND" or channel
+        channel = (c == "G" or c == "GUILD") and "GUILD" or channel
+        channel = (c == "I" or c == "INSTANCE" or c == "INSTANCECHAT" or c == "INSTANCE_CHAT") and "INSTANCE_CHAT" or channel
+        channel = (c == "O" or c == "OFFICER") and "OFFICER" or channel
+        channel = (c == "P" or c == "PARTY") and "PARTY" or channel
+        channel = (c == "R" or c == "RAID") and "RAID" or channel
+        channel = (c == "RW" or c == "RAIDWARNING" or c == "RAID_WARNING") and "RAID_WARNING" or channel
+        channel = (c == "S" or c == "SAY") and "SAY" or channel
+        channel = (c == "W" or c == "WHISPER") and "WHISPER" or channel
+
+        if channel == "INSTANCE_CHAT" then
+            channel = UnitInBattleground("player") and "BATTLEGROUND" or IsInInstance() and "INSTANCE_CHAT" or IsInRaid() and "RAID" or IsInGroup() and "PARTY" or nil
         end
-        SendChatMessage(mapName .. " @ " .. string.format("%.4f", waypoint.position.x) * 100 .. ", " .. string.format("%.4f", waypoint.position.y) * 100 .. " " .. C_Map.GetUserWaypointHyperlink(), channel, _, channelTarget)
+
+        if channel == "WHISPER" then
+            target = t and t or UnitIsPlayer("target") and UnitName("target") or UnitName("player")
+        end
+
+        return channel, target
+    elseif UnitInBattleground("player") or IsInInstance() or IsInRaid() or IsInGroup() then
+        local channel = UnitInBattleground("player") and "BATTLEGROUND" or IsInInstance() and "INSTANCE_CHAT" or IsInRaid() and "RAID" or "PARTY"
+
+        return channel, 1
+    end
+    return nil, 1
+end
+
+function ns:Share(channel, target)
+    if C_Map.HasUserWaypoint() then
+        channel, target = GetChannelInfo(channel, target)
+
+        if channel and target then
+            local waypoint = C_Map.GetUserWaypoint()
+
+            local mapInfo = C_Map.GetMapInfo(waypoint.uiMapID)
+            local mapName = mapInfo.name
+            if mapInfo.parentMapID then
+                local parentMapInfo = C_Map.GetMapInfo(mapInfo.parentMapID)
+                mapName = mapName .. ", " .. parentMapInfo.name
+            end
+            SendChatMessage(mapName .. " @ " .. string.format("%.4f", waypoint.position.x) * 100 .. ", " .. string.format("%.4f", waypoint.position.y) * 100 .. " " .. C_Map.GetUserWaypointHyperlink(), channel, _, target)
+        else
+            ns:PrettyPrint(L.NoShareChannel)
+        end
     else
-        ns:PrettyPrint(L.NoWaypoint)
+        ns:PrettyPrint(L.NoShareMapPin)
     end
 end
 

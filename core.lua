@@ -20,6 +20,23 @@ function ravGPS_OnEvent(self, event, arg, ...)
     end
 end
 
+function ravGPS_OnAddonCompartmentClick(addonName, buttonName)
+    if buttonName == "RightButton" then
+        ns:Share()
+        return
+    end
+    ns:Coordinates()
+end
+
+function ravGPS_OnAddonCompartmentEnter()
+    GameTooltip:SetOwner(DropDownList1)
+    GameTooltip:SetText(ns.name .. "        v" .. ns.version)
+    GameTooltip:AddLine(" ", 1, 1, 1, true)
+    GameTooltip:AddLine(L.AddonCompartmentTooltip1, 1, 1, 1, true)
+    GameTooltip:AddLine(L.AddonCompartmentTooltip2, 1, 1, 1, true)
+    GameTooltip:Show()
+end
+
 SlashCmdList["RAVGPS"] = function(message, editbox)
     local a, b, c
     if message:match(",") then
@@ -27,6 +44,7 @@ SlashCmdList["RAVGPS"] = function(message, editbox)
     else
         a, b, c = strsplit(" ", message)
     end
+
     if a == "version" or a == "v" then
         ns:PrettyPrint(L.Version)
     elseif a == "h" or a:match("help") then
@@ -34,10 +52,11 @@ SlashCmdList["RAVGPS"] = function(message, editbox)
     elseif a == "c" or a:match("clear") then
         C_Map.ClearUserWaypoint()
     elseif a == "s" or a:match("share") then
-        ns:Share(a, b, c)
+        ns:Share(b, c)
     else
         ns:Coordinates(a, b, c)
     end
 end
-SLASH_RAVGPS1 = "/gps"
-SLASH_RAVGPS2 = "/wp"
+SLASH_RAVGPS1 = "/" .. ns.command
+SLASH_RAVGPS2 = "/gps"
+SLASH_RAVGPS3 = "/ravgps"

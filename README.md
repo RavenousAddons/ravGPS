@@ -4,13 +4,13 @@
 
 *Four lefts and a right and you're there!*
 
-Type /gps to get your coordinates.
+Type /wp to set a waypoint at your current location.
 
-Or you can pass in specific coordinates: /gps 12.34 56.78.
+Or you can pass in specific coordinates: /wp 12.34 56.78
 
-You can share your coordinates to different channels even if they don't have the AddOn: /gps share guild, /gps share whisper NAME(-SERVER).
+You can share your coordinates to different channels even if they don't have the AddOn: /wp share, /wp share guild, /wp share whisper NAME(-SERVER).
 
-The AddOn can even set a map pin when you're typically unable to for your current map.
+The AddOn can sometimes even set a map pin when you're typically unable to at your location/on your current map.
 
 ### License
 
