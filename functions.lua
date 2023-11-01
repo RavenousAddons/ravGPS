@@ -5,13 +5,51 @@ function ns:PrettyPrint(message)
     DEFAULT_CHAT_FRAME:AddMessage("|cff" .. ns.color .. ns.name .. ":|r " .. message)
 end
 
-function ns:Coordinates(a, b, c)
+-- Return a Map ID (loops if passed Map Name)
+local function getMapID(input)
+    input = input:gsub("#", "")
+    if tonumber(input, 10) == nil then
+        for i = 1, 2225, 1 do
+            local mapInfo = C_Map.GetMapInfo(i)
+            if type(mapInfo) == "table" and mapInfo.name and mapInfo.name:upper():gsub("%s+", ""):match(input:upper():gsub("%s+", "")) then
+                return mapInfo.mapID
+            end
+        end
+    end
+    return input
+end
+
+-- x y
+-- m x y
+-- x y n
+-- m x y n
+
+function ns:Coordinates(a, b, c, d)
     if a == nil or #a == 0 then
         a = nil
     end
-    local mapID = c and a:gsub("#", "") or C_Map.GetBestMapForUnit("player")
-    local x = c and b or a
-    local y = c and c or b
+    local mapID, x, y, note
+    if d then
+        mapID = getMapID(a)
+        x = b
+        y = c
+        note = d
+    elseif c then
+        if tonumber(c, 10) == nil then
+            mapID = C_Map.GetBestMapForUnit("player")
+            x = a
+            y = b
+            note = c
+        else
+            mapID = getMapID(a)
+            x = b
+            y = c
+        end
+    else
+        mapID = C_Map.GetBestMapForUnit("player")
+        x = a
+        y = b
+    end
 
     local mapInfo = C_Map.GetMapInfo(mapID)
 
@@ -51,7 +89,7 @@ function ns:Coordinates(a, b, c)
         if placedOnParent then
             print(L.ParentPlace)
         end
-        ns:PrettyPrint(L.Place:format("|cffffff00|Hworldmap:" .. mapID .. ":" .. string.format("%.4f", x) * 10000 .. ":" .. string.format("%.4f", y) * 10000 .. "|h[|A:Waypoint-MapPin-ChatIcon:13:13:0:0|a |cffffff00" .. mapInfo.name .. " " .. string.format("%.4f", x) * 100 .. ", " .. string.format("%.4f", y) * 100 .. "|r]|h|r"))
+        ns:PrettyPrint(L.Place:format("|cffffff00|Hworldmap:" .. mapID .. ":" .. string.format("%.4f", x) * 10000 .. ":" .. string.format("%.4f", y) * 10000 .. "|h[|A:Waypoint-MapPin-ChatIcon:13:13:0:0|a |cffffff00" .. mapInfo.name .. " " .. string.format("%.4f", x) * 100 .. ", " .. string.format("%.4f", y) * 100 .. (note and (" " .. note .. " ") or "") .. "|r]|h|r"))
     else
         ns:PrettyPrint(L.NoPlace)
     end

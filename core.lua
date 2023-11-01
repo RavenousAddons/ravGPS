@@ -12,8 +12,10 @@ function ravGPS_OnEvent(self, event, arg, ...)
         if event == "ADDON_LOADED" then
             if not RAVGPS_version then
                 ns:PrettyPrint(L.Install)
+                ns:PrettyPrint("This version adds the ability to add notes to your waypoint text:|n/wp #10 50 50 Treasure")
             elseif RAVGPS_version ~= ns.version then
                 ns:PrettyPrint(L.Update)
+                ns:PrettyPrint("This version adds the ability to add notes to your waypoint text:|n/wp #10 50 50 Treasure")
             end
             RAVGPS_version = ns.version
         end
@@ -38,11 +40,11 @@ function ravGPS_OnAddonCompartmentEnter()
 end
 
 SlashCmdList["RAVGPS"] = function(message, editbox)
-    local a, b, c
+    local a, b, c, d
     if message:match(",") then
-        a, b, c = strsplit(",", message)
+        a, b, c, d = strsplit(",", message)
     else
-        a, b, c = strsplit(" ", message)
+        a, b, c, d = strsplit(" ", message)
     end
 
     if a == "version" or a == "v" then
@@ -54,7 +56,7 @@ SlashCmdList["RAVGPS"] = function(message, editbox)
     elseif a == "s" or a:match("share") then
         ns:Share(b, c)
     else
-        ns:Coordinates(a, b, c)
+        ns:Coordinates(a, b, c, d)
     end
 end
 SLASH_RAVGPS1 = "/" .. ns.command
