@@ -1,4 +1,4 @@
-local name, ns = ...
+local ADDON_NAME, ns = ...
 local L = ns.L
 
 local playerName = UnitName("player")
@@ -8,36 +8,41 @@ function ravGPS_OnLoad(self)
 end
 
 function ravGPS_OnEvent(self, event, arg, ...)
-    if arg == name then
-        if event == "ADDON_LOADED" then
-            if not RAVGPS_version then
-                ns:PrettyPrint(L.Install)
-                ns:PrettyPrint("This version adds the ability to add notes to your waypoint text:|n/wp #10 50 50 Treasure")
-            elseif RAVGPS_version ~= ns.version then
-                ns:PrettyPrint(L.Update)
-                ns:PrettyPrint("This version adds the ability to add notes to your waypoint text:|n/wp #10 50 50 Treasure")
-            end
-            RAVGPS_version = ns.version
+    if event == "ADDON_LOADED" then
+        if not RAVGPS_version then
+            ns:PrettyPrint(L.Install)
+        elseif RAVGPS_version ~= ns.version then
+            ns:PrettyPrint(L.Update)
         end
+        RAVGPS_version = ns.version
     end
 end
 
-function ravGPS_OnAddonCompartmentClick(addonName, buttonName)
-    if buttonName == "RightButton" then
-        ns:Share()
-        return
-    end
-    ns:Coordinates()
-end
-
-function ravGPS_OnAddonCompartmentEnter()
-    GameTooltip:SetOwner(DropDownList1)
-    GameTooltip:SetText(ns.name .. "        v" .. ns.version)
-    GameTooltip:AddLine(" ", 1, 1, 1, true)
-    GameTooltip:AddLine(L.AddonCompartmentTooltip1, 1, 1, 1, true)
-    GameTooltip:AddLine(L.AddonCompartmentTooltip2, 1, 1, 1, true)
-    GameTooltip:Show()
-end
+AddonCompartmentFrame:RegisterAddon({
+    text = ns.title,
+    icon = ns.icon,
+    registerForAnyClick = true,
+    notCheckable = true,
+    func = function(button, menuInputData, menu)
+        local mouseButton = menuInputData.buttonName
+        if mouseButton == "RightButton" then
+            ns:Share()
+            return
+        end
+        ns:OpenSettings()
+    end,
+    funcOnEnter = function(menuItem)
+        GameTooltip:SetOwner(menuItem)
+        GameTooltip:SetText(ns.name .. "        v" .. ns.version)
+        GameTooltip:AddLine(" ", 1, 1, 1, true)
+        GameTooltip:AddLine(L.AddonCompartmentTooltip1, 1, 1, 1, true)
+        GameTooltip:AddLine(L.AddonCompartmentTooltip2, 1, 1, 1, true)
+        GameTooltip:Show()
+    end,
+    funcOnLeave = function()
+        GameTooltip:Hide()
+    end,
+})
 
 SlashCmdList["RAVGPS"] = function(message, editbox)
     local a, b, c, d
