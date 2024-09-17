@@ -1,8 +1,8 @@
-## Interface: 110002
-## Version: 1.4.2
+## Interface: 110005
+## Version: 1.4.3
 
 ## Name: Ravenous GPS
-## Title: Ravenous |cffff6b6bGPS|r
+## Title: Ravenous GPS
 ## Notes: Let people know where you/your target are!|n|n|cffbbbbbbSlash command: /wp|r
 ## Author: RavenousAddons
 ## IconAtlas: Waypoint-MapPin-Tracked

@@ -9,9 +9,7 @@ setmetatable(L, { __index = function(t, k)
 end })
 
 L.Version = ns.version .. " is the current version."
-L.OutOfDate = "There is an update available for |cff" .. ns.color .. ns.name .. "|r! Please go to GitHub, WoWInterface, or Curse to download the latest version."
 L.Install = "Thanks for installing |cff" .. ns.color .. ns.name .. "|r!"
-L.Update = "Thanks for updating to |cff" .. ns.color .. "v" .. ns.version .. "|r!"
 
 L.AddonCompartmentTooltip1 = "|cff" .. ns.color .. "Left-Click:|r Set Map Pin"
 L.AddonCompartmentTooltip2 = "|cff" .. ns.color .. "Right-Click:|r Share Map Pin"

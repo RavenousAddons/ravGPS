@@ -4,17 +4,19 @@ local L = ns.L
 local playerName = UnitName("player")
 
 function ravGPS_OnLoad(self)
-    self:RegisterEvent("ADDON_LOADED")
+    self:RegisterEvent("PLAYER_ENTERING_WORLD")
 end
 
 function ravGPS_OnEvent(self, event, arg, ...)
-    if event == "ADDON_LOADED" then
+    if event == "PLAYER_ENTERING_WORLD" then
+        local isInitialLogin, isReloadingUi = ...
         if not RAVGPS_version then
             ns:PrettyPrint(L.Install)
         elseif RAVGPS_version ~= ns.version then
-            ns:PrettyPrint(L.Update)
+            -- Version-specific messages go here...
         end
         RAVGPS_version = ns.version
+        self:UnregisterEvent("PLAYER_ENTERING_WORLD")
     end
 end
 
@@ -29,7 +31,7 @@ AddonCompartmentFrame:RegisterAddon({
             ns:Share()
             return
         end
-        ns:OpenSettings()
+        ns:Coordinates()
     end,
     funcOnEnter = function(menuItem)
         GameTooltip:SetOwner(menuItem)
