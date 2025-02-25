@@ -1,11 +1,23 @@
-## Interface: 110005
-## Version: 1.4.3
+## Interface: 110100
+## Version: 1.4.4
 
 ## Name: Ravenous GPS
-## Title: Ravenous GPS
+## Title: Ravenous |cffff6b6bGPS|r
 ## Notes: Let people know where you/your target are!|n|n|cffbbbbbbSlash command: /wp|r
 ## Author: RavenousAddons
 ## IconAtlas: Waypoint-MapPin-Tracked
+
+## Category-enUS: Map
+## Category-deDE: Karte
+## Category-esES: Mapa
+## Category-esMX: Mapa
+## Category-frFR: Carte
+## Category-itIT: Mappa
+## Category-koKR: 지도
+## Category-ptBR: Mapa
+## Category-ruRU: Карта
+## Category-zhCN: 地图
+## Category-zhTW: 地圖
 
 ## SavedVariables: RAVGPS_version
 
@@ -14,4 +26,5 @@
 ## X-Curse-Project-ID: 429936
 ## X-WoWI-ID: 25839
 
+Libs/RavenousUtils/RavenousUtils.xml
 ravGPS.xml

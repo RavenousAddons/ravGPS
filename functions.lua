@@ -1,10 +1,6 @@
 local ADDON_NAME, ns = ...
 local L = ns.L
 
-function ns:PrettyPrint(message)
-    DEFAULT_CHAT_FRAME:AddMessage("|cff" .. ns.color .. ns.name .. ":|r " .. message)
-end
-
 -- Return a Map ID (loops if passed Map Name)
 local function getMapID(input)
     input = input:gsub("#", "")

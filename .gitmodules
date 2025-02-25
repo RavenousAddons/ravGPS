@@ -1,0 +1,3 @@
+[submodule "Libs/RavenousUtils"]
+	path = Libs/RavenousUtils
+	url = https://github.com/RavenousAddons/RavenousUtils

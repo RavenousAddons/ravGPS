@@ -1,8 +1,6 @@
 local ADDON_NAME, ns = ...
 local L = ns.L
 
-local playerName = UnitName("player")
-
 function ravGPS_OnLoad(self)
     self:RegisterEvent("PLAYER_ENTERING_WORLD")
 end
@@ -21,7 +19,7 @@ function ravGPS_OnEvent(self, event, arg, ...)
 end
 
 AddonCompartmentFrame:RegisterAddon({
-    text = ns.title,
+    text = ns.name,
     icon = ns.icon,
     registerForAnyClick = true,
     notCheckable = true,
